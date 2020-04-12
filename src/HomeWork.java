@@ -16,7 +16,7 @@ public class HomeWork {
         //Задание 2. Задать пустой целочисленный массив размером 8.
         // С помощью цикла заполнить его значениями 0 3 6 9 12 15 18 21;
 
-//      Первый вариант решения с традиционной записью цикла
+//      Первый вариант решения с ОДНОЙ переменной при объявлении цикла
 //        int [] array2 = new int[8];
 //        int fill = 0;
 //        for (int i = 0; i < Array.getLength(array2); i++) {
@@ -27,10 +27,10 @@ public class HomeWork {
 
 //      Второй вариант решения для записи цикла
         int [] array2 = new int[8];
-        int i;
+        int q; // дурацкое решение объявления переменных из-за ошибки в цикле. Разобрался 4-м задании
         int fill;
-        for (i = 0, fill = 0; i < Array.getLength(array2); i++, fill = fill + 3) {
-            array2 [i] = fill;
+        for (q = 0, fill = 0; q < Array.getLength(array2); q++, fill = fill + 3) {
+            array2 [q] = fill;
         }
         printIntArray(array2);
 
@@ -45,14 +45,14 @@ public class HomeWork {
         }
     printformatIntArray(array3);
 
-    //Задание 4. Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
+    //Задание 4/7. Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
     // и с помощью цикла(-ов) заполнить его диагональные элементы единицами;
     System.out.println("Задание 4.");
     int[][] array4 = new int[5][5];
-//    fill2Array(array4);// заполняем массив
-//    printformat2Array(array4);
-//    replaceDiagonal(array4);
-//    printformat2Array(array4);
+    fill2Array(array4);// заполняем массив
+    printformat2Array(array4);
+    replaceDiagonal(array4);
+    printformat2Array(array4);
 
     // Задание 5/7. ** Задать одномерный массив и найти в нем минимальный и максимальный элементы (без помощи интернета)
     System.out.println("Задание 5.");
@@ -65,21 +65,39 @@ public class HomeWork {
     // Примеры
     // checkBalance([2, 2, 2, 1, 2, 2, || 10, 1]) → true,
     // checkBalance([1, 1, 1, || 2, 1]) → true, граница показана символами ||, эти символы в массив не входят.
+    System.out.println("");
     System.out.println("Задание 6.");
-    int[] array6 = {3, 5, 9, 2, 11, 6, 7, 8, 3, 4};
-    findBorder(array6);
-
+    int[] array6 = {3, 5, 9, 2, 11, 6, 7, 5, 3, 4};
+    printformatIntArray(array6);
+    findBorder(array6);// можно "доводить" этот метод, остановился так как основное задание выполняет
 
     // Задание 7/7. Написать метод, которому на вход подается одномерный массив
     // и число n (может быть положительным, или отрицательным),
-    // при этом метод должен сместить все элементымассива на n позиций.
+    // при этом метод должен сместить все элементы массива на n позиций.
     // Для усложнения задачи нельзя пользоваться вспомогательными массивами.
+        System.out.println("");
+        System.out.println("Задание 7.");
+        int[] array7 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        printformatIntArray(array7);
 
+        int n7 = Array.getLength(array7);
+        System.out.println("Dimention Array = " + n7);
 
+        int d7 = 2; // на сколько будем смещать массив
+        for (int i = 0; i < d7 ; i++) { // данный цикл используем для смещения элементов массива. Один проход - одно смещение
+            for (int j = 0; j < Array.getLength(array7) - 1 ; j++) { // данный цикл для прохода по элементам массива
+                int shiftvalue = j + 1;
+                array7[j] = array7[j + 1]; //смещение влево
+                //System.out.println(j);
+                //смещение работает, но нужно разобраться с теми элементами что выпадают
+
+            }
+        }
+        printformatIntArray(array7);
 
 
     }//THE END ===================================================================
-    
+
     //Метод для вывода в консоль одномерного массива
     public static void printIntArray (int inArray[]){
         for (int j = 0; j < Array.getLength(inArray); j++) {
@@ -131,18 +149,14 @@ public class HomeWork {
     }
 
     //Задание 4. метод для замены значений по диагонали
-//    public static void replaceDiagonal (int inArray4 [][]){
-//        for (i, j, x; i < Array.getLength(inArray); i++, j++, x = x - 1) {
-//                inArray[i][j] = 1;
-//                inArray[i][x] = 1;
-//        }В этом закомментированном цикле возникает ошибка java: not a statement - при объявлении переменных. Почему не знаю
-//        int i4;
-//        int j4;
-//        for (i4 ; i4 < inArray4.length; i4++) {// тут та же фиггня
-//            int j4 = inArray4[i4].length;
-//            inArray4[i4][j4] = 1;
-//        }
-//    }
+    public static void replaceDiagonal (int inArray4 [][]){
+    // В цикле ниже возникала ошибка "java: not a statement" - при объявлении переменных.
+    // Просто тип переменной указываем ОДИН раз, вначале
+        for (int i = 0, j = 0, x = Array.getLength(inArray4) - 1; i < Array.getLength(inArray4); i++, j++, x = x - 1) {
+                inArray4[i][j] = 1;
+                inArray4[i][x] = 1;
+        }
+    }
 
     // Задание 5/7
     public static void minmax (int [] inArray5) {
@@ -161,15 +175,35 @@ public class HomeWork {
         System.out.printf("max : %1$4d min : %2$4d", max, min);
     }
 
-    // Задание 6. Нахождение границы.
+    // Задание 6/7. Нахождение границы.
     public static void findBorder(int [] inArray){
-        int l = inArray.length;
-        printformatIntArray(inArray);
-        for (int a = 0, b = inArray.length ; a <= l ; a++ , b--){// 56 минута второго урока. WORKED !!!!!!!
-            //System.out.println(" a = " + a + " b = "+ b);
-            //int leftBorder = inArray[a] + inArray[a+1];
+        int r = 0;
+        int lborder = 0;
+        int rborder = 0;
+        int n = Array.getLength(inArray) - 1; // Афигеть ! Для указания последнего элемента массива НУЖНО отнять 1 - иначе переполнение ИНДЕКСА
+        lborder = lborder + inArray[r];
+        rborder = rborder + inArray[n];
+
+        while (r < n){
+//        lborder = lborder + array6[r];
+//        rborder = rborder + array6[n];
+            System.out.println("LB = " + lborder + " RB = " + rborder);
+            //r = r + 1;
+            //n = n - 1;
+            if (lborder == rborder){
+                System.out.println("Border here ");
+                break; // если выбросить данный оператор, метод будет искать "границу" до конца массива
+            }
+            if (lborder < rborder){
+                r = r + 1;
+                lborder = lborder + inArray[r];
+            }
+            if (rborder < lborder){
+                n = n - 1;
+                rborder = rborder + inArray[n];
+            }
 
         }
+        System.out.println("Рассчёт окончен.");
     }
-
 }
